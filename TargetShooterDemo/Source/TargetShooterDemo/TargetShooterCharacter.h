@@ -26,4 +26,50 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+private:
+	// Rate of player look rotation on mouse
+	UPROPERTY(EditAnywhere)
+	float RotationRateMouse = 100.f;
+
+	// Rate of player look rotation on gamepad
+	UPROPERTY(EditAnywhere)
+	float RotationRateGamepad = 100.f;
+
+	/*
+	 * Handles moving forward/backward 
+	 */
+	void MoveForward(float AxisValue);
+
+	/*
+	 * Handles right/left strafing movement
+	 */
+	void MoveRight(float AxisValue);
+
+	/*
+	 * Called via mouse movement input to look up/down at the given rate
+	 * 
+	 * @param	RateValue	The normalized rotation rate (1.0 on the axis means 100 percent of the desired rotation rate)
+	 */
+	void LookUpRateMouse(float RateValue);
+	
+	/*
+	 * Called via mouse movement input to look right/left at the given rate
+	 * 
+	 * @param	RateValue	The normalized rotation rate (1.0 on the axis means 100 percent of the desired rotation rate)
+	 */
+	void LookRightRateMouse(float RateValue);
+
+	/*
+	 * Called via gamepad right thumbstick movement to look up/down at the given rate
+	 * 
+	 * @param	RateValue	The normalized rotation rate (1.0 on the axis means 100 percent of the desired rotation rate)
+	 */
+	void LookUpRateGamepad(float RateValue);
+
+	/*
+	 * Called via gamepad right thumbstick movement to look right/left at the given rate
+	 * 
+	 * @param	RateValue	The normalized rotation rate (1.0 on the axis means 100 percent of the desired rotation rate)
+	 */
+	void LookRightRateGamepad(float RateValue);
 };
