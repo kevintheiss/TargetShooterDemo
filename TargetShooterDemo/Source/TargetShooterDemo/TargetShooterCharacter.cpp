@@ -2,6 +2,7 @@
 
 
 #include "TargetShooterCharacter.h"
+#include "Gun.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ATargetShooterCharacter
@@ -20,6 +21,13 @@ void ATargetShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (GunClass != nullptr)
+	{
+		// Spawn a Gun actor and attach it to the character's skeletal mesh weapon socket
+		Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+		Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("Pistol_Socket"));
+		Gun->SetOwner(this);
+	}
 }
 
 // Called every frame

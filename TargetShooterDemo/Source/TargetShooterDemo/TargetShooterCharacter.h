@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "TargetShooterCharacter.generated.h"
 
+// Forward declare AGun class
+class AGun;
+
 UCLASS()
 class TARGETSHOOTERDEMO_API ATargetShooterCharacter : public ACharacter
 {
@@ -34,6 +37,14 @@ private:
 	// Rate of player look rotation on gamepad
 	UPROPERTY(EditAnywhere)
 	float RotationRateGamepad = 100.f;
+
+	// Gun class to spawn an AGun actor instance into the world
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AGun> GunClass;
+
+	// Gun pointer to attach to the character's weapon socket in its skeletal mesh
+	UPROPERTY()
+	AGun* Gun;
 
 	/*
 	 * Handles moving forward/backward 
