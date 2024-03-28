@@ -24,11 +24,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	// Root scene component pointer to derive the gun's transform
+	// Root scene component to derive the gun's transform
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* Root;
 
-	// Skeletal mesh component pointer
+	// Gun's skeletal mesh
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* Mesh;
 

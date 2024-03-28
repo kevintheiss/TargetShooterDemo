@@ -6,13 +6,22 @@
 #include "GameFramework/Character.h"
 #include "TargetShooterCharacter.generated.h"
 
-// Forward declare AGun class
+// Forward declarations
+class UCameraComponent;
 class AGun;
 
 UCLASS()
 class TARGETSHOOTERDEMO_API ATargetShooterCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+	// Player character's skeletal mesh
+	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	USkeletalMeshComponent* PlayerCharacterMesh;
+
+	// First person camera from the player character's perspective
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UCameraComponent* FirstPersonCameraComponent;
 
 public:
 	// Sets default values for this character's properties

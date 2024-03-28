@@ -2,6 +2,8 @@
 
 
 #include "TargetShooterCharacter.h"
+#include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Gun.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -14,18 +16,25 @@ ATargetShooterCharacter::ATargetShooterCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Set FirstPersonCameraComponent and attach it as a child of the capsule component
+	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
+	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
+
+	// Set PlayerCharacterMesh and attach it as a child of FirstPersonCameraComponent
+	PlayerCharacterMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("PlayerCharacterMesh"));
+	PlayerCharacterMesh->SetupAttachment(FirstPersonCameraComponent);
 }
 
 // Called when the game starts or when spawned
 void ATargetShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	if (GunClass != nullptr)
 	{
 		// Spawn a Gun actor and attach it to the character's skeletal mesh weapon socket
 		Gun = GetWorld()->SpawnActor<AGun>(GunClass);
-		Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("Pistol_Socket"));
+		Gun->AttachToComponent(PlayerCharacterMesh, FAttachmentTransformRules::KeepRelativeTransform, TEXT("Pistol_Socket"));
 		Gun->SetOwner(this);
 	}
 }
