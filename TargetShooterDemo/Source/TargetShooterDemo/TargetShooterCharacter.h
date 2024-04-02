@@ -92,4 +92,7 @@ private:
 	 * @param	RateValue	The normalized rotation rate (1.0 on the axis means 100 percent of the desired rotation rate)
 	 */
 	void LookRightRateGamepad(float RateValue);
+
+	/** Called via mouse click or gamepad button input to fire a projectile **/
+	void Shoot();
 };
