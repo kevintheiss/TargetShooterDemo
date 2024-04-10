@@ -39,6 +39,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	float MaxRange = 1000.f;
 
+	// The gun's force of impact
+	UPROPERTY(EditAnywhere)
+	float ImpactForce = 5000.f;
+
 	/** Returns the controller pointer for the gun's owner pawn **/
 	AController* GetOwnerController() const;
 

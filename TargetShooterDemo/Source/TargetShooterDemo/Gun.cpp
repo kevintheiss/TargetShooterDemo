@@ -5,6 +5,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
+#include "GameplayTagContainer.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AGun::AGun()
@@ -89,10 +91,35 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 
 void AGun::PullTrigger()
 {
-	// Values to be set by GunTrace out parameters
+	// Out parameter values to be set in GunTrace
 	FHitResult Hit;
 	FVector ShotDirection;
 
-	GunTrace(Hit, ShotDirection);
+	// Store the result of GunTrace
+	bool bSuccess = GunTrace(Hit, ShotDirection);
+
+	if (bSuccess)
+	{
+		// Actor hit by GunTrace
+		AActor* HitActor = Hit.GetActor();
+
+		if (HitActor != nullptr)
+		{
+			// Get HitActor's static mesh component
+			UStaticMeshComponent* HitActorMesh = Cast<UStaticMeshComponent>(HitActor->GetRootComponent());
+
+			if (HitActorMesh == nullptr)
+			{
+				return;
+			}
+
+			// Check if HitActor is tagged as a TargetObject
+			if (HitActor->ActorHasTag(TEXT("TargetObject")))
+			{
+				// Push HitActorMesh outward by the value in ImpactForce
+				HitActorMesh->AddImpulse(-ShotDirection * ImpactForce, NAME_None, true);
+			}
+		}
+	}
 }
 
