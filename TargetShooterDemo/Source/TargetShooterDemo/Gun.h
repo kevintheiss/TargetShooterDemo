@@ -41,7 +41,7 @@ private:
 
 	// The gun's force of impact
 	UPROPERTY(EditAnywhere)
-	float ImpactForce = 5000.f;
+	float ImpactForce = 1000.f;
 
 	/** Returns the controller pointer for the gun's owner pawn **/
 	AController* GetOwnerController() const;

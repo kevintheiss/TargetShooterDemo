@@ -70,8 +70,8 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 	// Set Location and Rotation out parameters to those of the player's viewpoint
 	OwnerController->GetPlayerViewPoint(Location, Rotation);
 
-	// Set ShotDirection to the rotation vector pointing away from the player's viewpoint
-	ShotDirection = -Rotation.Vector();
+	// Set ShotDirection to the rotation vector pointing outward from the player's viewpoint
+	ShotDirection = Rotation.Vector();
 
 	// The end point of the line trace, which stops at MaxRange
 	FVector End = Location + Rotation.Vector() * MaxRange;
@@ -86,7 +86,7 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 	DrawDebugLine(GetWorld(), Location, End, FColor::Red, true, 5.f, 0.5f);
 
 	// Return true if the line trace reaches MaxRange
-	return GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECollisionChannel::ECC_Camera, Params);
+	return GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECollisionChannel::ECC_PhysicsBody, Params);
 }
 
 void AGun::PullTrigger()
@@ -105,19 +105,22 @@ void AGun::PullTrigger()
 
 		if (HitActor != nullptr)
 		{
-			// Get HitActor's static mesh component
-			UStaticMeshComponent* HitActorMesh = Cast<UStaticMeshComponent>(HitActor->GetRootComponent());
-
-			if (HitActorMesh == nullptr)
+			if (HitActor->IsRootComponentMovable())
 			{
-				return;
-			}
+				// Get HitActor's static mesh component
+				UStaticMeshComponent* HitActorMesh = Cast<UStaticMeshComponent>(HitActor->GetRootComponent());
 
-			// Check if HitActor is tagged as a TargetObject
-			if (HitActor->ActorHasTag(TEXT("TargetObject")))
-			{
-				// Push HitActorMesh outward by the value in ImpactForce
-				HitActorMesh->AddImpulse(-ShotDirection * ImpactForce, NAME_None, true);
+				if (HitActorMesh == nullptr)
+				{
+					return;
+				}
+
+				// Check if HitActor is tagged as a TargetObject
+				if (HitActor->ActorHasTag(TEXT("TargetObject")))
+				{
+					// Push HitActorMesh outward by the value in ImpactForce
+					HitActorMesh->AddImpulse(ShotDirection * ImpactForce);
+				}
 			}
 		}
 	}
