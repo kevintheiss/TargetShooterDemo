@@ -91,6 +91,9 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 
 void AGun::PullTrigger()
 {
+	// Spawn MuzzleFlash when firing the gun
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
+
 	// Out parameter values to be set in GunTrace
 	FHitResult Hit;
 	FVector ShotDirection;
