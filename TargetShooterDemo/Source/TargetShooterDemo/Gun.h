@@ -47,6 +47,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* MuzzleFlash;
 
+	// The bullet impact effect
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* ImpactEffect;
+
 	/** Returns the controller pointer for the gun's owner pawn **/
 	AController* GetOwnerController() const;
 

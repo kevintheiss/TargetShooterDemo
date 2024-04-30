@@ -103,6 +103,9 @@ void AGun::PullTrigger()
 
 	if (bSuccess)
 	{
+		// Spawn ImpactEffect at the location where the target is hit
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+
 		// Actor hit by GunTrace
 		AActor* HitActor = Hit.GetActor();
 
