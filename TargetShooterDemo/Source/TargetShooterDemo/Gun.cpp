@@ -91,6 +91,9 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 
 void AGun::PullTrigger()
 {
+	// Spawn MuzzleFlash when firing the gun
+	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
+
 	// Out parameter values to be set in GunTrace
 	FHitResult Hit;
 	FVector ShotDirection;
@@ -100,6 +103,9 @@ void AGun::PullTrigger()
 
 	if (bSuccess)
 	{
+		// Spawn ImpactEffect at the location where the target is hit
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ImpactEffect, Hit.Location, ShotDirection.Rotation());
+
 		// Actor hit by GunTrace
 		AActor* HitActor = Hit.GetActor();
 
