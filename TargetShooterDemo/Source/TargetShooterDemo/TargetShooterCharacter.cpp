@@ -70,7 +70,7 @@ void ATargetShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 	PlayerInputComponent->BindAction(TEXT("Shoot"), EInputEvent::IE_Pressed, this, &ATargetShooterCharacter::Shoot);
 
 	// Bind reload input
-	//PlayerInputComponent->BindAction(TEXT("Reload"), EInputEvent::IE_Pressed, this, &ATargetShooterCharacter::Reload);
+	PlayerInputComponent->BindAction(TEXT("Reload"), EInputEvent::IE_Pressed, this, &ATargetShooterCharacter::Reload);
 }
 
 void ATargetShooterCharacter::MoveForward(float AxisValue)
@@ -131,4 +131,10 @@ void ATargetShooterCharacter::Shoot()
 {
 	// Pull the trigger
 	Gun->PullTrigger();
+}
+
+void ATargetShooterCharacter::Reload()
+{
+	// Reload the gun
+	Gun->Reload();
 }

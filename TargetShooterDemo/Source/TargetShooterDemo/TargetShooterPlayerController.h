@@ -6,9 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TargetShooterPlayerController.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class TARGETSHOOTERDEMO_API ATargetShooterPlayerController : public APlayerController
 {
@@ -21,4 +18,7 @@ protected:
 private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UUserWidget> HUDClass;
+
+	UPROPERTY()
+	UUserWidget* HUD;
 };

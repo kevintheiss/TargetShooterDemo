@@ -4,12 +4,16 @@
 #include "TargetShooterPlayerController.h"
 #include "Blueprint/UserWidget.h"
 
+//////////////////////////////////////////////////////////////////////////
+// ATargetShooterPlayerController
+//////////////////////////////////////////////////////////////////////////
+
 // Called when the game starts or when spawned
 void ATargetShooterPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UUserWidget* HUD = CreateWidget(this, HUDClass);
+	HUD = CreateWidget(this, HUDClass);
 
 	if (HUD != nullptr)
 	{

@@ -15,14 +15,25 @@ public:
 	// Sets default values for this actor's properties
 	AGun();
 
-	// Called when the player shoots
-	void PullTrigger();
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
+	// Returns true if the gun is out of ammo
+	UFUNCTION(BlueprintPure)
+	bool IsGunEmpty() const;
+
+	// Returns the gun's current ammo count
+	UFUNCTION(BlueprintPure)
+	float GetCurrentAmmo() const;
+
+	// Called when the player reloads or the gun is empty
+	void Reload();
+
+	// Called when the player shoots
+	void PullTrigger();
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -37,11 +48,11 @@ private:
 
 	// The gun's maximum range
 	UPROPERTY(EditAnywhere)
-	float MaxRange = 1000.f;
+	float MaxRange = 2000.f;
 
 	// The gun's force of impact
 	UPROPERTY(EditAnywhere)
-	float ImpactForce = 1000.f;
+	float ImpactForce = 1000000.f;
 
 	// The gun's muzzle flash effect
 	UPROPERTY(EditAnywhere)
@@ -51,7 +62,15 @@ private:
 	UPROPERTY(EditAnywhere)
 	UParticleSystem* ImpactEffect;
 
-	/** Returns the controller pointer for the gun's owner pawn **/
+	// The gun's current ammo
+	UPROPERTY(VisibleAnywhere)
+	float CurrentAmmo;
+
+	// The gun's maximum ammo
+	UPROPERTY(EditDefaultsOnly)
+	float MaxAmmo = 15.f;
+
+	// Returns the controller for the gun's owner pawn
 	AController* GetOwnerController() const;
 
 	/*
