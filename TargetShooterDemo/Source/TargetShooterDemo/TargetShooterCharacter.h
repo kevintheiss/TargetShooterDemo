@@ -57,11 +57,15 @@ private:
 
 	/*
 	 * Handles moving forward/backward 
+	 * 
+	 * @param	AxisValue	The normalized movement value along the Y axis  (1.0 is forward, -1.0 is backward)
 	 */
 	void MoveForward(float AxisValue);
 
 	/*
 	 * Handles right/left strafing movement
+	 * 
+	 * @param	AxisValue	The normalized movement value along the X axis (1.0 is right, -1.0 is left)
 	 */
 	void MoveRight(float AxisValue);
 
@@ -95,4 +99,7 @@ private:
 
 	/** Called via mouse click or gamepad button input to fire a projectile **/
 	void Shoot();
+
+	/** Called via keyboard or gamepad button input to reload the gun **/
+	void Reload();
 };
