@@ -29,9 +29,11 @@ public:
 	float GetCurrentAmmo() const;
 
 	// Called when the player reloads or the gun is empty
+	UFUNCTION(BlueprintCallable)
 	void Reload();
 
 	// Called when the player shoots
+	UFUNCTION(BlueprintCallable)
 	void PullTrigger();
 
 	// Called every frame

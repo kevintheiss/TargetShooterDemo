@@ -32,6 +32,7 @@ void AGun::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Reload();
 }
 
 // Called every frame
@@ -111,13 +112,6 @@ void AGun::Reload()
 
 void AGun::PullTrigger()
 {
-	if (IsGunEmpty())
-	{
-		// Reload if the gun is empty, and don't pull the trigger while reloading
-		Reload();
-		return;
-	}
-
 	// Make sure CurrentAmmo does not go below 0
 	float SubtractedAmmo = FMath::Min(CurrentAmmo, 1.f);
 

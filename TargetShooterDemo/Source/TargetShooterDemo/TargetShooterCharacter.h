@@ -15,10 +15,6 @@ class TARGETSHOOTERDEMO_API ATargetShooterCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	// Player character's skeletal mesh
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
-	USkeletalMeshComponent* PlayerCharacterMesh;
-
 	// First person camera from the player character's perspective
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
@@ -26,6 +22,10 @@ class TARGETSHOOTERDEMO_API ATargetShooterCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ATargetShooterCharacter();
+
+	// Player character's skeletal mesh
+	UPROPERTY(BlueprintReadOnly, Category = Mesh)
+	USkeletalMeshComponent* PlayerCharacterMesh;
 
 protected:
 	// Called when the game starts or when spawned
@@ -96,10 +96,4 @@ private:
 	 * @param	RateValue	The normalized rotation rate (1.0 on the axis means 100 percent of the desired rotation rate)
 	 */
 	void LookRightRateGamepad(float RateValue);
-
-	/** Called via mouse click or gamepad button input to fire a projectile **/
-	void Shoot();
-
-	/** Called via keyboard or gamepad button input to reload the gun **/
-	void Reload();
 };
