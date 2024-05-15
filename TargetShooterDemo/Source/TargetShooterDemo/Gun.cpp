@@ -8,6 +8,10 @@
 #include "GameplayTagContainer.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+/////////////////
+// AGun
+/////////////////
+
 // Sets default values
 AGun::AGun()
 {
@@ -28,6 +32,7 @@ void AGun::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Reload();
 }
 
 // Called every frame
@@ -89,8 +94,31 @@ bool AGun::GunTrace(FHitResult& Hit, FVector& ShotDirection)
 	return GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECollisionChannel::ECC_PhysicsBody, Params);
 }
 
+bool AGun::IsGunEmpty() const
+{
+	return CurrentAmmo <= 0.f;
+}
+
+float AGun::GetCurrentAmmo() const
+{
+	return CurrentAmmo;
+}
+
+void AGun::Reload()
+{
+	// Reset CurrentAmmo to MaxAmmo
+	CurrentAmmo = MaxAmmo;
+}
+
 void AGun::PullTrigger()
 {
+	// Make sure CurrentAmmo does not go below 0
+	float SubtractedAmmo = FMath::Min(CurrentAmmo, 1.f);
+
+	// Reduce CurrentAmmo by 1
+	CurrentAmmo -= SubtractedAmmo;
+	UE_LOG(LogTemp, Warning, TEXT("CurrentAmmo: %f"), CurrentAmmo);
+
 	// Spawn MuzzleFlash when firing the gun
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh, TEXT("MuzzleFlashSocket"));
 
