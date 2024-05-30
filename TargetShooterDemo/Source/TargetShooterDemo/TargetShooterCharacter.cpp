@@ -65,12 +65,6 @@ void ATargetShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 
 	// Bind jump input
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
-
-	// Bind shoot input
-	PlayerInputComponent->BindAction(TEXT("Shoot"), EInputEvent::IE_Pressed, this, &ATargetShooterCharacter::Shoot);
-
-	// Bind reload input
-	//PlayerInputComponent->BindAction(TEXT("Reload"), EInputEvent::IE_Pressed, this, &ATargetShooterCharacter::Reload);
 }
 
 void ATargetShooterCharacter::MoveForward(float AxisValue)
@@ -125,10 +119,4 @@ void ATargetShooterCharacter::LookRightRateGamepad(float RateValue)
 		// Look up/down at the given RateValue
 		AddControllerYawInput(RateValue * RotationRateGamepad * GetWorld()->GetDeltaSeconds());
 	}
-}
-
-void ATargetShooterCharacter::Shoot()
-{
-	// Pull the trigger
-	Gun->PullTrigger();
 }
