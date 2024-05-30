@@ -104,6 +104,11 @@ float AGun::GetCurrentAmmo() const
 	return CurrentAmmo;
 }
 
+float AGun::GetMaxAmmo() const
+{
+	return MaxAmmo;
+}
+
 void AGun::Reload()
 {
 	// Reset CurrentAmmo to MaxAmmo
