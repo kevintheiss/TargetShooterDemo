@@ -28,6 +28,10 @@ public:
 	UFUNCTION(BlueprintPure)
 	float GetCurrentAmmo() const;
 
+	// Returns the gun's maximum ammo count
+	UFUNCTION(BlueprintPure)
+	float GetMaxAmmo() const;
+
 	// Called when the player reloads or the gun is empty
 	UFUNCTION(BlueprintCallable)
 	void Reload();

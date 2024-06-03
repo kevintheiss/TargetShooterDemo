@@ -4,6 +4,7 @@
 #include "TargetShooterCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Gun.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -119,4 +120,9 @@ void ATargetShooterCharacter::LookRightRateGamepad(float RateValue)
 		// Look up/down at the given RateValue
 		AddControllerYawInput(RateValue * RotationRateGamepad * GetWorld()->GetDeltaSeconds());
 	}
+}
+
+bool ATargetShooterCharacter::IsGrounded() const
+{
+	return GetCharacterMovement()->IsMovingOnGround();
 }
