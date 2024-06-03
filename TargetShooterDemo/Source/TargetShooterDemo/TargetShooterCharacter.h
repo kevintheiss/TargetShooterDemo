@@ -32,6 +32,10 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	// Returns true if the player is on the ground
+	UFUNCTION(BlueprintPure)
+	bool IsGrounded() const;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
